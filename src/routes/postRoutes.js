@@ -1,23 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const {
+  post_index,
+  post_details,
+  post_create,
+  post_delete,
+} = require('../controllers/postController');
 
-router.get('/', async (req, res) => {
-  res.json({ res: 'all posts' });
-});
-
-router.post('/', (req, res) => {
-  res.json({ msg: 'new post' });
-});
-
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-
-  res.json({ res: 'single post' });
-});
-
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({ msg: `delete ${id}` });
-});
+router.get('/', post_index);
+router.post('/', post_create);
+router.get('/:id', post_details);
+router.delete('/:id', post_delete);
 
 module.exports = router;
