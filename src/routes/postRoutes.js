@@ -6,10 +6,11 @@ const {
   post_create,
   post_delete,
 } = require('../controllers/postController');
+const { verifyToken } = require('../controllers/authController');
 
 router.get('/', post_index);
-router.post('/', post_create);
+router.post('/', verifyToken, post_create);
 router.get('/:id', post_details);
-router.delete('/:id', post_delete);
+router.delete('/:id', verifyToken, post_delete);
 
 module.exports = router;

@@ -1,12 +1,12 @@
 const post_index = async (req, res) => {
-  const [allPosts] = await dbConnection.execute('SELECT * FROM posts');
+  const [allPosts] = await dbConnection.execute('SELECT * FROM post');
   res.status(200).json(allPosts);
 };
 
 const post_details = async (req, res) => {
   const { id } = req.params;
   const [[postDetail]] = await dbConnection.execute(
-    'SELECT * FROM posts WHERE id = ?',
+    'SELECT * FROM post WHERE id = ?',
     [id],
   );
 
@@ -18,7 +18,7 @@ const post_create = async (req, res) => {
   try {
     const { title, subheading, body } = req.body;
     const [{ insertId }] = await dbConnection.execute(
-      'INSERT INTO posts (title, subheading, body) VALUES (?,?,?)',
+      'INSERT INTO post (title, subheading, body) VALUES (?,?,?)',
       [title, subheading, body],
     );
     res.status(200).json({ success: true, new_post_id: insertId });
@@ -30,7 +30,7 @@ const post_create = async (req, res) => {
 const post_delete = async (req, res) => {
   const { id } = req.params;
   const [{ affectedRows }] = await dbConnection.execute(
-    'DELETE FROM posts WHERE id = ?',
+    'DELETE FROM post WHERE id = ?',
     [id],
   );
   if (affectedRows === 0) res.status(404).json({ error: 'Invalid id' });
