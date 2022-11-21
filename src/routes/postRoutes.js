@@ -12,7 +12,7 @@ const { verifyToken } = require('../controllers/authController');
 router.get('/', post_index);
 router.post('/', verifyToken, post_create);
 router.get('/:id', post_details);
-router.put('/:id', post_update);
+router.put('/:id', verifyToken, post_update);
 router.delete('/:id', verifyToken, post_delete);
 
 module.exports = router;

@@ -19,8 +19,7 @@ const verifyToken = (req, res, next) => {
   else {
     jwt.verify(token, process.env.AUTH_SECRET, (err) => {
       if (err) res.status(500).json({ auth: false, message: err.message });
-
-      next();
+      else next();
     });
   }
 };
