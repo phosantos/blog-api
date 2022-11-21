@@ -1,22 +1,21 @@
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 
-async function connect() {
+function connect() {
   try {
-    const connection = await mysql.createConnection({
+    const connection = mysql.createPool({
       host: process.env.MYSQLHOST,
       port: process.env.MYSQLPORT,
       user: process.env.MYSQLUSER,
       password: process.env.MYSQLPASSWORD,
       database: process.env.MYSQLDATABASE,
+      connectionLimit: 10,
     });
 
     console.log('Banco de dados conectado.');
-    global.dbConnection = connection;
+    global.dbConnection = connection.promise();
   } catch (err) {
     console.log('Erro ao conectar Banco de dados: ' + err);
   }
 }
 
-connect();
-
-module.exports = {};
+module.exports = connect();

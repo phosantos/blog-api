@@ -1,5 +1,7 @@
 const post_index = async (req, res) => {
-  const [allPosts] = await dbConnection.execute('SELECT * FROM post');
+  const [allPosts] = await dbConnection.execute(
+    'SELECT id, title, subheading, created_at FROM post',
+  );
   res.status(200).json(allPosts);
 };
 
